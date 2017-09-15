@@ -1,10 +1,18 @@
-int mex(set<int> &s){ // mex in O(n)
-    int i = 0;
-    for(auto it = s.begin(); it != s.end(); i++, it++)
-        if( *it!= i)
+int mex(set<int> &s){ // using set
+    int mx = 0;
+    for(auto it = s.begin(); it != s.end(); mx++, it++)
+        if( *it != mx)
             break;
-    return i;
+    return mx;
 }
+
+int mex(unordered_set<int> &s){ // using unorderd set
+    int mx = 0;
+    while(s.find(mx) != s.end())
+        mx++;
+    return mx;
+}
+
 
 bool nim(vector<int> &v){
     int ans = 0;

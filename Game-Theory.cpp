@@ -13,6 +13,15 @@ int mex(unordered_set<int> &s){ // using unorderd set
     return mx;
 }
 
+// the fastest way
+int mex(bool s[]){
+    int mx = 0;
+    while(s[mx]) ++mx;
+    return mx;
+    // in grundy() use : bool s[32]= {}; to initialize with zero
+    // and fill occupied valid values by 1
+}
+
 
 bool nim(vector<int> &v){
     int ans = 0;

@@ -6,6 +6,13 @@ int mex(set<int> &s){ // mex in O(n)
     return i;
 }
 
+bool nim(vector<int> &v){
+    int ans = 0;
+    for(int i = 0; i < (int)v.size(); ++i)
+        ans ^= v[i];
+    return ans != 0;
+}
+
 bool misere(vector<int> &v){
     int ans = 0;
     bool lastlv = 1;

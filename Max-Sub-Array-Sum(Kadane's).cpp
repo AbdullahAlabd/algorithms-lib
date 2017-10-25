@@ -15,11 +15,11 @@ int maxSubArraySum(int a[], int size){
 }
  
  
-//Kadane’s Algorithm handles if all array elements are -ve , to get [start.ed] of the subArray
+//Kadane’s Algorithm handles if all array elements are -ve , to get [start, end] of the subArray
  
 int maxSubArraySum(int a[], int size){
  
-    int max_so_far = INT_MIN, max_ending_here = 0, start =0, end = 0, s=0;
+    int max_so_far = INT_MIN, max_ending_here = 0, start = 0, end = 0, s = 0;
  
     for (int i=0; i< size; i++ ){
  

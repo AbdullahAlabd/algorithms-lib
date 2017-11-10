@@ -25,7 +25,7 @@ ll powmod(ll n, ll exponent, ll modulus){
 	return result;
 }
 
-/*Rabin-Miller Strong Pseudoprime Test*/
+/*Miller–Rabin Strong Pseudoprime Test*/
 bool strong_pseudo_primetest(ll n,int base){ // O(log n)
 /* return by 1 if n is a strong pseudo prime for base, otherwise by 0 */
 
@@ -46,7 +46,7 @@ bool strong_pseudo_primetest(ll n,int base){ // O(log n)
 	return 0;
 }
 
-/*Rabin–Miller primality test*/
+/*Miller–Rabin primality test*/
 bool isprime(ll n){ // tested up to 10e9
 	if(n<2) return 0;
 	if(n<4) return 1;

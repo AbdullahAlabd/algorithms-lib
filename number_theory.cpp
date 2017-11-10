@@ -9,7 +9,7 @@ ll mulmod(const ll&a, const ll&b, const ll&p){ // faster way to get (a * b) % mo
 	ll  r = a*b - y*p;
 	if (r < 0) r = r+p;
 	return r;
-    //	return a*b%p;
+    	//return a*b%p;
 }
 
 ll powmod(ll n, ll exponent, ll modulus){
@@ -32,8 +32,8 @@ bool strong_pseudo_primetest(ll n,int base){ // O(log n)
 	ll n2 = n-1, res;
 	int s = 0;
 	//a = base
-    //n-1 = (2^s)*d where d is odd
-    //strong pseudo prime iff [ ( (a^d)%n == 1 ) || ( a^(d*(2^r)) %n == n-1 where r in {0,..,s-1} ) ]
+    	//n-1 = (2^s)*d where d is odd
+    	//strong pseudo prime iff [ ( (a^d)%n == 1 ) || ( a^(d*(2^r)) %n == n-1 where r in {0,..,s-1} ) ]
 	while(!(n2&1))  n2>>=1, ++s;
 
 	res = powmod(base, n2, n);

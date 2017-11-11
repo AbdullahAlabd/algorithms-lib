@@ -46,11 +46,16 @@ bool strong_pseudo_primetest(ll n,int base){ // O(log n)
 	return 0;
 }
 
-/*Miller–Rabin primality test*/
-bool isprime(ll n){ // tested up to 10e9
+/*Miller–Rabin primality test variant*/
+bool isprime(ll n){ //true tested up to 10e9 , in general isprime(n) = 1 -> n is prime 
 	if(n<2) return 0;
 	if(n<4) return 1;
 
+    	//// remove this part if you are sure that n is not a multiple of these small primes.
+	int smallPrimes[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71};
+    	for(int i = 0; i < 15; ++i)
+        	if(n>smallPrimes[i] && n%smallPrimes[i] == 0) return 0;
+    	/////////////////////////////////////////////////////////////////////////////////////
 	if(!strong_pseudo_primetest(n,2)) return 0;
 	if(!strong_pseudo_primetest(n,3)) return 0;
 	if(n < 1373653LL) return 1;
@@ -59,7 +64,8 @@ bool isprime(ll n){ // tested up to 10e9
 	if(n < 25326001LL) return 1;
 
 	if(!strong_pseudo_primetest(n,7)) return 0;
-	if(n < 3215031751LL) return 1;
+    	if(n == 3215031751LL) return 0;
+	if(n < 118670087467LL) return 1;
 
 	if(!strong_pseudo_primetest(n,11)) return 0;
 	if(n < 2152302898747LL) return 1;
@@ -80,3 +86,4 @@ bool isprime(ll n){ // tested up to 10e9
 
 	return 1;
 }
+

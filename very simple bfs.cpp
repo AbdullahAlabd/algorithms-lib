@@ -9,9 +9,9 @@ void bfs(int root){
     q.push(root);
     while(!q.empty()){
         //get front node
-        //pop
+        //pop front node
         //find adjacents of the front node
-            //if an adjacent is not visited
+            //if an adjacent is not visited yet
                 //mark it as visited and push it to queue;
     }
 }

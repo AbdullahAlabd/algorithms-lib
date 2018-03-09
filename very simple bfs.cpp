@@ -12,7 +12,7 @@ void bfs(int root){
         //pop front node
         //find adjacents of the front node
             //if an adjacent is not visited yet
-                //mark it as visited and push it to queue;
+                //mark it as visited and push it to queue
     }
 }
 

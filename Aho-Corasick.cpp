@@ -72,9 +72,9 @@ struct aho_corasick {
                 }
             }
         }
-	}
+    }
 
-	void answer(char *str) { // find inserted patterns in the main string str.
+    void answer(char *str) { // find inserted patterns in the main string str.
         node *cur = root, *k;
         int ch;
         for(; *str; str++){
@@ -93,8 +93,8 @@ struct aho_corasick {
             for(int ptrn: cur->patIdx)
                 ans[ptrn]++;
         }
-	}
-
+    }
+    
 };
 
 int main(){

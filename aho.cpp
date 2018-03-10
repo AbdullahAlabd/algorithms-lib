@@ -23,7 +23,7 @@ struct aho_corasick {
         root = new node();
     }
 
-	void insert(char *str) {
+    void insert(char *str) {
         node *cur = root;
         int ch;
         for(; *str; str++){
@@ -34,22 +34,19 @@ struct aho_corasick {
         }
         cur->patIdx.push_back(patCount++);
         ans.push_back(0);
-	}
+    }
 
     void build() { //build failure on the trie
         queue<node*> q;
-
         for(int i = 0; i < range; i++)
             if(root->child[i])
                 q.push(root->child[i]), root->child[i]->fail = root;
-
+	    
         node *cur, *chld, *k;
         vector<int> *failList, *curList;
-
         while(!q.empty()){
             cur = q.front();
             q.pop();
-
             for(int i = 0; i < range; i++){
                 chld = cur->child[i];
                 if(chld){
@@ -62,7 +59,6 @@ struct aho_corasick {
                         chld->fail = k->child[i];
                     else
                         chld->fail = root;
-
                     curList = &(chld->patIdx);
                     failList = &(chld->fail->patIdx);
                     curList->insert(curList->end(), failList->begin(), failList->end());
@@ -71,9 +67,9 @@ struct aho_corasick {
                 }
             }
         }
-	}
+    }
 
-	void answer(char *str) {
+    void answer(char *str) {
         node *cur = root, *k;
         int ch;
         for(; *str; str++){
@@ -83,17 +79,14 @@ struct aho_corasick {
                 if(k == root) break;
                 k = k->fail;
             }
-
             if(k->child[ch])
                 cur = k->child[ch];
             else
                 cur = root;
-
-            for(int ptrn : cur->patIdx){
+            for(int ptrn : cur->patIdx)
                 ans[ptrn]++;
-            }
         }
-	}
+    }
 
 };
 

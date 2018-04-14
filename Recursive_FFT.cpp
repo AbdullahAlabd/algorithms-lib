@@ -37,48 +37,61 @@ vector<complex<double> > recursive_fft(vector<complex<double> > &a, bool inv = 0
 }
 
 
-void poly_mul(vector<complex<double> > &a, vector<complex<double> > &b) {
-    int n = a.size();
-    vector<complex<double> > ya, yb, yc(n), c(n);
+vector<int> poly_mul(vector<int> &ca, vector<int> &cb, int n) {
 
-    ya = recursive_fft(a, 0);
-    yb = recursive_fft(b, 0);
-
-    for (int i = 0; i < n; ++i)
-        yc[i] = ya[i] * yb[i];
-
-    c = recursive_fft(yc, 1); //finds inv of yc
-
-    for (int i = 0; i < (n-1); ++i)
-        cout << int(round(c[i].real()/n)) << " ";
-}
-
-int main() {
-
-    int n, coefficient;
-    cin >> n;
-    int nxtP2 = 1;
+    int nxtP2 = 1; // calculate next power of 2
     while (nxtP2 < n) {
         nxtP2 <<= 1;
     }
 
-    vector<complex<double> > a(2*nxtP2), b(2*nxtP2), c(2*nxtP2);
+    int m = nxtP2<<1;
 
-    for(int i = 0; i < 2*nxtP2; ++i) {
+    vector<complex<double> > a(m), b(m), c(m);
+
+    for(int i = 0; i < m; ++i) {
         a[i] = complex<double>(0, 0);
         b[i] = complex<double>(0, 0);
         c[i] = complex<double>(0, 0);
     }
-
     for(int i = 0; i < n; ++i){
-        cin >> coefficient;
-        a[i] = complex<double>(coefficient, 0);
+        a[i] = complex<double>(ca[i], 0);
     }
-
     for(int i = 0; i < n; ++i){
-        cin >> coefficient;
-        b[i] = complex<double>(coefficient, 0);
+        b[i] = complex<double>(cb[i], 0);
     }
-    poly_mul(a, b);
+    vector<complex<double> > ya, yb, yc(m);
 
+    ya = recursive_fft(a, 0);
+    yb = recursive_fft(b, 0);
+
+    for (int i = 0; i < m; ++i)
+        yc[i] = ya[i] * yb[i];
+
+    c = recursive_fft(yc, 1); //finds Inv-FFT of yc
+
+    //C(x) = A(x) * B(x)
+    //deg(A) = nxtP2-1, deg(B) = nxtP2-1 => deg(C) = 2nxtP2-2
+    vector<int> cc(m-1);
+    for (int i = 0; i <= m-2; ++i)
+        cc[i] = int(round(c[i].real()/(m)));
+    return cc;
+}
+
+int main() {
+
+    int n;
+    cin >> n;
+    //A(x), B(x) are polys of deg n-1 where ca is integer coefs of A, cb is integer coefs of B
+    vector<int> ca(n), cb(n), cc;
+    for(int i = 0; i < n; ++i) {
+        cin >> ca[i];
+    }
+    for(int i = 0; i < n; ++i) {
+        cin >> cb[i];
+    }
+    cc = poly_mul(ca, cb, n);
+    for(int i = 0; i < (int)cc.size(); ++i) {
+        cout << cc[i] << " ";
+    }
+    cout << endl;
 }

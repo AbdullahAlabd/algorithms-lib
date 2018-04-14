@@ -17,12 +17,9 @@ vector<complex<double> > recursive_fft(vector<complex<double> > &a, bool inv = 0
     }
     w = complex<double>(1.0, 0.0);
 
-    for(int i = 0; i < n; ++i) {
-        if(i&1) {
-            aOdd.push_back(a[i]);
-        } else {
-            aEven.push_back(a[i]);
-        }
+    for(int i = 0; i < n/2; ++i) { // n is always power of 2
+        aEven.push_back(a[2*i]);
+        aOdd.push_back(a[2*i+1]);
     }
 
     yEven = recursive_fft(aEven, inv), yOdd = recursive_fft(aOdd, inv);
@@ -36,44 +33,32 @@ vector<complex<double> > recursive_fft(vector<complex<double> > &a, bool inv = 0
     return y;
 }
 
-
 vector<int> poly_mul(vector<int> &ca, vector<int> &cb, int n) {
 
     int nxtP2 = 1; // calculate next power of 2
     while (nxtP2 < n) {
         nxtP2 <<= 1;
     }
-
     int m = nxtP2<<1;
 
-    vector<complex<double> > a(m), b(m), c(m);
-
-    for(int i = 0; i < m; ++i) {
-        a[i] = complex<double>(0, 0);
-        b[i] = complex<double>(0, 0);
-        c[i] = complex<double>(0, 0);
-    }
-    for(int i = 0; i < n; ++i){
+    vector<complex<double> > a(m), b(m), c(m), ya, yb, yc(m);
+    for(int i = 0; i < n; ++i) {
         a[i] = complex<double>(ca[i], 0);
-    }
-    for(int i = 0; i < n; ++i){
         b[i] = complex<double>(cb[i], 0);
     }
-    vector<complex<double> > ya, yb, yc(m);
 
     ya = recursive_fft(a, 0);
     yb = recursive_fft(b, 0);
-
-    for (int i = 0; i < m; ++i)
+    for (int i = 0; i < m; ++i) {
         yc[i] = ya[i] * yb[i];
-
-    c = recursive_fft(yc, 1); //finds Inv-FFT of yc
-
+    }
+    c = recursive_fft(yc, 1); //finds Inv-FFT of yc but we also need to devide by m
     //C(x) = A(x) * B(x)
     //deg(A) = nxtP2-1, deg(B) = nxtP2-1 => deg(C) = 2nxtP2-2
     vector<int> cc(m-1);
-    for (int i = 0; i <= m-2; ++i)
-        cc[i] = int(round(c[i].real()/(m)));
+    for (int i = 0; i <= m-2; ++i) {
+        cc[i] = int(round(c[i].real()/m));
+    }
     return cc;
 }
 

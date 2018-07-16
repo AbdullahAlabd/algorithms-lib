@@ -2,8 +2,9 @@
 using namespace std;
 
 typedef long long ll;
-int fact[1000000];
+
 const int mod = 1e9+7, MAXN = 1000000;
+int fact[MAXN];
 
 int fast_power(ll x, ll n, int mod) {
     ll ans = 1, base = x % mod;

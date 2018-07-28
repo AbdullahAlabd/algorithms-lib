@@ -4,6 +4,14 @@
 using namespace std;
 
 int main(){
+    //string split.
+    string s;
+    getline(cin, s);
+    stringstream ss(s);
+    int n;
+    while(ss >> n) {
+        cout << n << endl;
+    }
     // Ouput a specific number of digits past the decimal point,
     // in this case 5
     cout.setf(ios::fixed); cout << setprecision(5);

@@ -2,7 +2,7 @@
 using namespace std;
 
 typedef long long ll;
-const int MAXN = 5003; // max number of nodes & edges.
+const int MAXN = 5003; // max number of nodes.
 
 vector<int> g[MAXN]; //graph
 vector<int> tg[MAXN]; //transpose graph

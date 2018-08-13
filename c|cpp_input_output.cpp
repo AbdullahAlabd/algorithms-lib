@@ -4,6 +4,12 @@
 using namespace std;
 
 int main(){
+    /// C
+    double d = 1.2;
+    int n = 4;
+    printf("%.*f\n",n, d); //print n digits after comma.
+    
+    ///C++
     //string split.
     string s;
     getline(cin, s);

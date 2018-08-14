@@ -1,20 +1,23 @@
-const int MAXNODE = 52;
- 
-struct DSU{
- 
-    int id[MAXNODE], sz[MAXNODE];
- 
+
+const int MAXN = 1e5+5;
+
+struct DSU {
+
+    int id[MAXN], sz[MAXN];
+
     DSU() {
-        for(int i = 0; i < MAXNODE; i++)
+        for(int i = 0; i < MAXN; i++) {
             id[i] = i, sz[i] = 1;
+        }
     }
- 
+
     int root(int i) {
-        while(i != id[i])
-            i = id[i] = i[id][id]; //equivalent to id[id[i]]
+        while(i != id[i]) {
+            i = id[i] = id[id[i]];
+        }
         return i;
     }
- 
+
     void unite(int a , int b) {
         a = root(a), b = root(b);
         if(a == b) return;

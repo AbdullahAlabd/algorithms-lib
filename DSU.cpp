@@ -1,4 +1,3 @@
-
 const int MAXN = 1e5+5;
 
 struct DSU {
@@ -13,7 +12,7 @@ struct DSU {
 
     int root(int i) {
         while(i != id[i]) {
-            i = id[i] = id[id[i]];
+            i = id[i] = id[id[i]]; // path compression.
         }
         return i;
     }
@@ -21,7 +20,7 @@ struct DSU {
     void unite(int a , int b) {
         a = root(a), b = root(b);
         if(a == b) return;
-        if (sz[a] < sz[b]) swap(a, b);
+        if (sz[a] < sz[b]) swap(a, b); // union by rank.
         if (sz[a] == sz[b]) ++sz[a];
         id[b] = a;
     }

@@ -6,7 +6,7 @@ const ll INF = 1e16+16; //greater than (max node wight) * number of nodes;
 ll dist[MAXN];
 int parent[MAXN];
 
-vector<pair<int,ll> > adj[MAXN];
+vector<pair<int, ll> > adj[MAXN];
 
 struct cmp {
     bool operator () (pair<int, ll> a, pair<int, ll> b) {
@@ -15,14 +15,13 @@ struct cmp {
 };
 
 //find the shortest path from the source to every node reachable from it
-void dijkstra(int src){
+void dijkstra(int src) {
     for(int i = 0; i < MAXN; i++) {
         dist[i] = INF;
     }
-    priority_queue< pair<int, ll>, vector< pair<int, ll> >, cmp> q;
+    priority_queue<pair<int, ll>, vector<pair<int, ll> >, cmp> q;
     parent[src] = -1;
-    dist[src] = 0;
-    q.push({src, dist[src]});
+    q.push({src, dist[src] = 0});
     pair<int, ll> p;
     while(!q.empty()) {
         p = q.top();
@@ -35,8 +34,7 @@ void dijkstra(int src){
                 ll edgeCost = it.second;
                 if(cost + edgeCost < dist[tnode]) {
                     parent[tnode] = node;
-                    dist[tnode] = cost + edgeCost;
-                    q.push({tnode, dist[tnode]});
+                    q.push({tnode, dist[tnode] = cost + edgeCost});
                 }
             }
         }

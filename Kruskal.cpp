@@ -1,55 +1,70 @@
-int N;
-const int MAXNODE = 1000006;
- 
+#include <bits/stdc++.h>
+using namespace std;
+
+
+typedef long long ll;
+
+const int MAXN = 1e6+6; // max number of nodes.
+
 struct edge{
     int from, to;
-    long long cost;
+    ll cost;
+    bool operator < (const edge &e) const {
+        return  cost < e.cost;
+    }
 };
- 
-edge edgeList[MAXNODE];
- 
-struct DSU{
- 
-    int id[MAXNODE], sz[MAXNODE];
- 
-    DSU(){
-        for(int i =0;i<MAXNODE;i++)
-            id[i]=i,sz[i]=1;
+
+struct DSU {
+
+    int id[MAXN], sz[MAXN];
+
+    DSU() {
+        for(int i = 0; i < MAXN; i++) {
+            id[i] = i, sz[i] = 1;
+        }
     }
- 
-    int root(int i){
-        while(i != id[i])
-            i = id[i] = i[id][id];
+
+    int root(int i) {
+        while(i != id[i]) {
+            i = id[i] = id[id[i]];
+        }
         return i;
- 
     }
- 
-    bool unite(int a , int b){
-        a=root(a),b=root(b);
-        if(a==b) return 0;
+
+    bool unite(int a , int b) {
+        a = root(a), b = root(b);
+        if(a == b) return 0;
         if (sz[a] < sz[b]) swap(a, b);
         if (sz[a] == sz[b]) ++sz[a];
         id[b] = a;
         return 1;
     }
 };
- 
-bool comp (edge a, edge b){
-    return a.cost<b.cost;
-}
- 
-int kruskal(int m){
- 
-    int MAX_Cost=0;
-    int pathN=0;
+
+
+ll kruskal(vector<edge> edgeList) { // edges and number of nodes
     DSU D;
-    sort(edgeList,edgeList+m,comp);
-    for(int i =0;i<m;i++)
-        if(D.unite(edgeList[i].from,edgeList[i].to)){
-            MAX_Cost=edgeList[i].cost;
-            pathN++;
+    ll mstCost = 0;
+    sort(edgeList.begin(), edgeList.end());
+    for(int i = 0; i < (int)edgeList.size(); i++) {
+        if(D.unite(edgeList[i].from, edgeList[i].to)) {
+            mstCost += edgeList[i].cost;
         }
- 
-    return (pathN!=N-1?-1: MAX_Cost);
+    }
+    /*
+        if(number of edges != number of nodes - 1
+            then there is no mst
+    */
+    return mstCost;
 }
- 
+
+int main () {
+    int n, m;
+    scanf("%d %d", &n, &m);
+    vector<edge> ve(m);
+    for(int i = 0; i < m; i++) {
+        scanf("%d %d %lld", &ve[i].from, &ve[i].to, &ve[i].cost);
+    }
+    printf("%lld\n", kruskal(ve));
+
+}

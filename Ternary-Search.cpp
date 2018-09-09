@@ -26,24 +26,20 @@ ll ts(int st, int ed){ //ternary search for finding min in O(log n).
     return funci(x);
 }
 ///////////////////////
-typedef long double ld;
-
-ld weakness(ld x){
+double func(double x) {
     // here func
 }
 
-ld ts(ld st, ld ed){
-
-    ld l = st, r = ed, l1, r1;
-
+double ts(double st, double ed) {
+    double l = st, r = ed, l1, r1;
     for(int i = 0; i < 200; i++) {
         l1 = l+(r-l)/3;
         r1 = r-(r-l)/3;
-
-        if(weakness(l1) < weakness(r1))
+        if(func(l1) < func(r1)) {
             r = r1;
-        else
+        } else {
             l = l1;
+        }
     }
-    return weakness(l);
+    return func(l);
 }

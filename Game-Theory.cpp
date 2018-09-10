@@ -29,6 +29,8 @@ bool nim(vector<int> &v){
         ans ^= v[i];
     return ans != 0;
 }
+
+
 //normal nim except when all piles are zeros or ones.
 bool misere(vector<int> &v){
     int ans = 0;
@@ -40,4 +42,23 @@ bool misere(vector<int> &v){
     if(lastlv)
         return ans == 0;
     return ans != 0;
+}
+
+//nim-k
+//generalization of nim.
+//players can pick from at least one pile and at most k piles
+//represent all piles in binary.
+//for every bit calculate the sum of all values in it's column.
+//all cul sums % (k+1) == 0 <=> first player lose.
+bool nimk(vector<int>&v, int k){
+    int c[32] = {};
+    for(int i = 0; i < 32; i++){
+        for(int j = 0; j < (int)v.size(); j++){
+            c[i]+= (v[j]&(1<<i))>>i;
+        }
+        c[i] %= k+1;
+        if(c[i]) // if all columns are divisible by k+1 then first player loses.
+            return 1;
+    }
+    return 0;
 }

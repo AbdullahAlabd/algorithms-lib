@@ -29,7 +29,7 @@ bool nim(vector<int> &v){
         ans ^= v[i];
     return ans != 0;
 }
-
+//normal nim except when all piles are zeros or ones.
 bool misere(vector<int> &v){
     int ans = 0;
     bool lastlv = 1;

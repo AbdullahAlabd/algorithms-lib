@@ -67,7 +67,6 @@ bool nimk(vector<int>&v, int k){
 
 
 //if com(i) = 0^1^2^…..^i then
-
 //com(i) is defined as follows :
 
 ll com(ll i) {
@@ -76,5 +75,4 @@ ll com(ll i) {
 }
 
 //and the value of (i)^(i+1)^….^(j) is :
-
 //com(j)^com(i-1).

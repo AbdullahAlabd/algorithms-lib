@@ -62,3 +62,19 @@ bool nimk(vector<int>&v, int k){
     }
     return 0;
 }
+
+
+
+
+//if com(i) = 0^1^2^…..^i then
+
+//com(i) is defined as follows :
+
+ll com(ll i) {
+    ll a[] = {i, 1, i+1, 0};
+    return a[i%4];
+}
+
+//and the value of (i)^(i+1)^….^(j) is :
+
+//com(j)^com(i-1).

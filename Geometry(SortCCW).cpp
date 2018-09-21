@@ -9,7 +9,7 @@ const double _inf = 1/0.0;
 #define vec(a,b) 	((b) - (a))
 #define cross(a,b) 	((conj(a) * (b)).imag())
 
-struct cmp {
+struct cmp { //may sort CCW or CW.
     point about;
     cmp(point c) {
         about = c;
@@ -19,7 +19,7 @@ struct cmp {
         if (abs(cr) < EPS) {
             return make_pair(p.Y, p.X) < make_pair(q.Y, q.X);
         }
-        return cr > 0;
+        return cr > 0; // sorts some cases CW|CCW(some CW and some CCW). if we use < it'll work  CCW|CW
     }
 };
 

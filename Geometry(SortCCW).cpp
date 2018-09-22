@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -9,7 +10,7 @@ const double _inf = 1/0.0;
 #define vec(a,b) 	((b) - (a))
 #define cross(a,b) 	((conj(a) * (b)).imag())
 
-struct cmp { //may sort CCW or CW.
+struct cmp { //sort CCW.
     point about;
     cmp(point c) {
         about = c;
@@ -19,11 +20,11 @@ struct cmp { //may sort CCW or CW.
         if (abs(cr) < EPS) {
             return make_pair(p.Y, p.X) < make_pair(q.Y, q.X);
         }
-        return cr > 0; // sorts some cases CW|CCW(some CW and some CCW). if we use < it'll work  CCW|CW
+        return cr > 0;
     }
 };
 
-void sortACW(vector<point> &pts) {
+void sortCCW(vector<point> &pts) {
     point bl(_inf, _inf);
     for(int i = 0; i < (int)pts.size(); i++) {
         if(make_pair(pts[i].Y, pts[i].X) < make_pair(bl.Y, bl.X)) {
@@ -34,15 +35,15 @@ void sortACW(vector<point> &pts) {
 }
 
 int main() {
-    int n, m;
-    scanf("%d %d", &n, &m);
+    int n;
+    scanf("%d", &n);
     double x, y;
     vector<point> vp;
     for(int i = 0; i < n; i++) {
         scanf("%lf %lf", &x, &y);
         vp.push_back(point(x, y));
     }
-    sortACW(vp);
+    sortCCW(vp);
     for(int i = 0; i < n; i++) {
         cout << vp[i] << endl;
     }

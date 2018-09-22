@@ -20,7 +20,7 @@ struct cmp { //sort CCW.
         if (abs(cr) < EPS) {
             return make_pair(p.Y, p.X) < make_pair(q.Y, q.X);
         }
-        return cr > 0;
+        return cr > 0; // or < for CW
     }
 };
 

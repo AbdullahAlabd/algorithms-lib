@@ -1,12 +1,12 @@
 typedef long long ll;
 
-ll func(int x){
+ll func(int x) {
     // return some value
 }
 
-ll ts(int st, int ed){ //ternary search for finding min in O(log n).
-    int l = st, r = ed, l1, r1;
-    while(l+3 <= r){
+ll ts(int l, int r) { //ternary search for finding min in O(log n).
+    int l1, r1;
+    while(l+3 <= r) {
         l1 = l+(r-l)/3;
         r1 = r-(r-l)/3;
         if(func(l1) < func(r1)) { // < for min
@@ -28,8 +28,8 @@ double func(double x) {
     // here func
 }
 
-double ts(double st, double ed) {
-    double l = st, r = ed, l1, r1;
+double ts(double l, double r) {
+    double l1, r1;
     for(int i = 0; i < 200; i++) {
         l1 = l+(r-l)/3;
         r1 = r-(r-l)/3;

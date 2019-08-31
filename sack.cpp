@@ -36,7 +36,7 @@ void dfs(int v, int p, bool keep) {
     if(big+1)
         dfs(big, v, 1), vec[v] = vec[big];
     else
-        vec[v] = new vector<int> ();
+        vec[v] = new vector<int> (); // no big child => no childs at all.
 
     vec[v]->push_back(v);
 
@@ -76,5 +76,5 @@ int main() {
         g[v].push_back(u);
     }
     subTreeSize(1, -1);
-    dfs(1, -1, 1);
+    dfs(1, -1, 0); // last param better be 0 if theres multiple testcases.
 }

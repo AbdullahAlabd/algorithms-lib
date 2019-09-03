@@ -6,7 +6,7 @@ typedef long long ll;
 
 const int MAXN = 1e5+5;
 
-int mod[2] = {971590421, 765804359}; // 2 prime mod.
+int mod[2] = {971590421, 765804359}; // 2 prime mod should be less than 2e9 to avoid overflow
 int base[2] = {97, 257}; // 2 prime bases.
 int base_power[2][MAXN]; // all powers for bases.
 
@@ -17,12 +17,12 @@ int main() {
             base_power[r][i] = 1ll * base[r] * base_power[r][i-1] % mod[r];
         }
     }
-    
+
     int T, n, k;
     char s[MAXN];
 
     int hash[2][MAXN]; // comulative hash array
-    set<pair<int, int> > hashes; // set of double hashes
+    unordered_set<ll> hashes; // set of double hashes
 
     scanf("%d", &T);
     while(T--) {
@@ -31,15 +31,15 @@ int main() {
         scanf("%s", s);
         for(int r = 0; r < 2; r++) {
             for(int i = 0; i < n; i++) { // building comulative hash array.
-                hash[r][i] = ((i ? hash[r][i-1] : 0) + 1ll * (s[i] - 'a' + 1) * base_power[r][i] % mod[r] ) % mod[r];
+                hash[r][i] = ((i ? hash[r][i-1] : 0) + 1ll * s[i] * base_power[r][i]) % mod[r];
             }
         }
-        int hsh[2]; // 
+        int hsh[2]; //
         for(int i = 0; i <= n-k; i++) {
             for(int r = 0; r < 2; r++) { // hashing using 2 different hash functions.
-                hsh[r] = 1ll * (hash[r][i+k-1] - (i ? hash[r][i-1] : 0) + mod[r]) % mod[r] * base_power[r][n-k-i] % mod[r];
+                hsh[r] = 1ll * (hash[r][i+k-1] - (i ? hash[r][i-1] : 0) + mod[r]) * base_power[r][n-k-i] % mod[r];
             }
-            hashes.insert({hsh[0], hsh[1]}); // push the double hash to set.
+            hashes.insert(hsh[0]*1e9+hsh[1]); // push the double hash to set.
         }
         printf("%d\n", (int)hashes.size());
     }

@@ -6,7 +6,7 @@ typedef long long ll;
 
 const int MAXN = 1e5+5;
 
-int mod[2] = {971590421, 765804359}; // 2 prime mod should be less than 2e9 to avoid overflow
+int mod[2] = {1000000093, 1000000103}; // 2 prime mod should be less than 2e9 to avoid overflow
 int base[2] = {97, 257}; // 2 prime bases.
 int base_power[2][MAXN]; // all powers for bases.
 

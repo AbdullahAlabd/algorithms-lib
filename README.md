@@ -2,6 +2,8 @@
 Collection of widely used algorithms in competitive programming contests
 Algorithms included are:
 
+This readme file is outdated, Algorithms list below is changed.
+
 ### Graph Algorithms:
 
   * SSSP algorithms: 

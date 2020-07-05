@@ -1,5 +1,5 @@
-const int MAXN = 1e5+5;
-int BIT[MAXN]; // max idx 1-based
+const int MAXN = 1e5+5; // max possible idx + 2 at least 1-based
+int BIT[MAXN]; // 1-based
 
 int get(int idx) { // get sum of element in range [1, idx].
     int sum = 0;

@@ -1,42 +1,43 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include <iostream>
+
 using namespace std;
 
-vector<int> failure(string p) {
-    int n = (int)p.size();
-    vector<int> f(n, 0);
-    for(int i = 1, k = 0; i < n; i++) {
-        while(k && p[i] != p[k]) {
-            k = f[k-1];
+vector<int> LPS(const string& pattern) { // longest propper prefix that is a suffix
+    vector<int> lps(pattern.length(), 0);
+    int len = 0;
+    for (int i = 1; i < pattern.length(); i++) {
+        while (len && pattern[i] != pattern[len]) { // matching failure
+            len = lps[len - 1];
         }
-        if(p[k] == p[i]) {
-            f[i] = ++k;
-        } else {
-            f[i] = k;
+        if (pattern[len] == pattern[i]) {
+            ++len;
         }
+        lps[i] = len;
     }
-    return f;
+    return lps;
 }
 
-void kmp(string s, string p) {
-    int n = (int)s.size(), m = (int)p.size();
-    vector<int> f = failure(p);
-    for(int i = 0, k = 0; i < n; i++) {
-        while(k && p[k] != s[i]) {
-            k = f[k-1];
+void KMP(const string& text, const string& pattern) { // similar to the LPS except: matching is between pattern and text, and loop start at 0
+    vector<int> lps = LPS(pattern);
+    int len = 0;
+    for (int i = 0; i < text.length(); i++) { // iterate over text, start at i = 0
+        while (len && pattern[len] != text[i]) { // matching failure
+            len = lps[len - 1];
         }
-        if(p[k] == s[i]) {
-            k++;
+        if (pattern[len] == text[i]) {
+            ++len;
         }
-        if(k == m) {
-            cout << "match at: " << i-m+1 << endl;
-            k = f[k-1];
+        if (len == pattern.length()) { // a match found;
+            cout << "match at: " << i - pattern.length() + 1 << endl;
+            len = lps[len - 1]; // fail intentionaly to find next match
         }
     }
 }
 
-int main () {
+int main() {
     string s, p;
     s = "abxababaaba"; // 0 0 0 1 2 1 2 1 1 2 1
     p = "aba"; // 0 0 1
-    kmp(s, p);
+    KMP(s, p);
 }

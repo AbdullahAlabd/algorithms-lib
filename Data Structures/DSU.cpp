@@ -8,14 +8,14 @@ struct DSU {
         }
     }
     
-    int root(int idx) {
+    int root(int idx) { // O(Log N) worst case
         while(idx != parent[idx]) {
             idx = parent[idx] = parent[parent[idx]]; // path compression.
         }
         return idx;
     }
     // using union by rank and path compression yield in amortized time complexity of O(c) in practice.
-    int unite(int a, int b) {
+    int unite(int a, int b) { // O(Log N) worst case
         a = root(a), b = root(b);
         if(a == b) {
             return a;

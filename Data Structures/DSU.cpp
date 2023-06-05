@@ -7,23 +7,23 @@ struct DSU {
             parent[idx] = idx, rank[idx] = 1;
         }
     }
-
+    
     int root(int idx) {
         while(idx != parent[idx]) {
-            idx = parent[idx] = parent[parent[idx]];
+            idx = parent[idx] = parent[parent[idx]]; // path compression.
         }
         return idx;
     }
-
+    // using union by rank and path compression yield in amortized time complexity of O(c) in practice.
     int unite(int a, int b) {
         a = root(a), b = root(b);
         if(a == b) {
             return a;
         }
-        if(rank[a] < rank[b]) {
+        if(rank[a] < rank[b]) { // union by rank.
             swap(a, b);
         }
-        if(rank[a] == rank[b]) {
+        if(rank[a] == rank[b]) { 
             rank[a]++;
         }
         parent[b] = a;
